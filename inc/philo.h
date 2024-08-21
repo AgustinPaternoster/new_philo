@@ -62,6 +62,8 @@ void ft_usleep(int miliseconds);
 bool ft_isnumber(char c);
 // init
 bool init_data(t_data *data, char **argv, int arc);
+// threads
+bool start_simulation(t_data *data);
 
 
 #endif

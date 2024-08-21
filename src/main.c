@@ -11,6 +11,8 @@ void clean_close(t_data *data)
     pthread_mutex_destroy(&data->print);
     pthread_mutex_destroy(&data->dead);
     pthread_mutex_destroy(&data->meals);
+	free(data->forks);
+	free(data->philo);
 }
 
 static bool check_nb(int arc, char **argv)
@@ -59,5 +61,8 @@ int main(int arc , char **argv)
     if (!check_arguments(arc, argv))
 		return (printf(RULES),1);
     if (!init_data(&data, argv,arc))
+		return (printf("Error\n"),clean_close(&data),1);
+	if (!)
+	clean_close(&data);
     return (0);
 }

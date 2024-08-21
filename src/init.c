@@ -10,7 +10,7 @@ static bool init_mutex(t_data *data)
         return (FALSE);
     while(i < data->philo_nb)
     {
-        data->forks[i].fork_nb = 0;
+        data->forks[i].fork_nb = i;
         if(pthread_mutex_init(&data->forks[i].fork,NULL)!= 0)
             return (FALSE);
         i++;
@@ -39,6 +39,7 @@ static bool init_philo(t_data * data)
 		data->philo[i].data = data;
         data->philo[i].right_fork = &data->forks[i];
 		data->philo[i].left_fork = &data->forks[(i + 1) % data->philo_nb];
+        i++;
     }
     return (TRUE);
 }
@@ -58,5 +59,6 @@ bool init_data(t_data *data, char **argv, int arc)
     	return (FALSE);
 	if (!init_philo(data))
     	return (FALSE);
+
 	return (TRUE);
 }

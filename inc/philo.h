@@ -21,6 +21,12 @@ typedef enum
     TRUE
 }bool;
 
+typedef struct s_forks
+{
+    int fork_nb;
+    pthread_mutex_t fork;
+}t_forks;
+
 typedef struct c_philo
 {
     pthread_t thread_id;
@@ -28,15 +34,15 @@ typedef struct c_philo
     int meals;
     long last_meal;
     //bool is_full;
-    pthread_mutex_t *right_fork;
-    pthread_mutex_t *left_fork;
+    t_forks *right_fork;
+    t_forks *left_fork;
     struct s_data *data; 
 }t_philo;
 
 typedef struct s_data
 {
     t_philo *philo;
-    pthread_mutex_t *forks;
+    t_forks *forks;
     int philo_nb;
     long time_eat;
     long time_sleep;

@@ -5,7 +5,7 @@ void clean_close(t_data *data)
     int i;
     while (i < data->philo_nb)
     {
-        pthread_mutex_destroy(&data->forks[i]);
+        pthread_mutex_destroy(&data->forks[i].fork);
         i++;
     }
     pthread_mutex_destroy(&data->print);
@@ -58,6 +58,6 @@ int main(int arc , char **argv)
     (void)data;
     if (!check_arguments(arc, argv))
 		return (printf(RULES),1);
-    
+    if (!init_data(&data, argv,arc))
     return (0);
 }

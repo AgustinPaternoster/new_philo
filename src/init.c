@@ -5,12 +5,13 @@ static bool init_mutex(t_data *data)
     int i;
 
     i = 0;
-    data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_nb);
+    data->forks = malloc(sizeof(t_forks) * data->philo_nb);
     if (data->forks == NULL)
         return (FALSE);
     while(i < data->philo_nb)
     {
-        if(pthread_mutex_init(&data->forks[i],NULL)!= 0)
+        data->forks[i].fork_nb = 0;
+        if(pthread_mutex_init(&data->forks[i].fork,NULL)!= 0)
             return (FALSE);
         i++;
     }

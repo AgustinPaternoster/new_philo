@@ -64,6 +64,7 @@ bool ft_isnumber(char c);
 bool init_data(t_data *data, char **argv, int arc);
 // threads
 bool start_simulation(t_data *data);
+void *philo_rutine(void *philos);
 
 
 #endif

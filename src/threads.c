@@ -6,7 +6,7 @@ static void pthreads_join(t_data * data)
     i = 0;
     while(i < data->philo_nb)
     {
-        pthread_join(data->philo[i].thread, NULL);
+        pthread_join(data->philo[i].thread_id, NULL);
         i++;
     }
 }
@@ -25,6 +25,7 @@ bool start_simulation(t_data *data)
         data->philo[i].last_meal = get_date_time();
         i++;
     }
+    pthreads_join(data);
 	printf("salida treads");
     return (TRUE);
 }

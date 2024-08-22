@@ -62,7 +62,8 @@ int main(int arc , char **argv)
 		return (printf(RULES),1);
     if (!init_data(&data, argv,arc))
 		return (printf("Error\n"),clean_close(&data),1);
-	if (!)
+	if (!start_simulation(&data))
+		return (printf("Error\n"),clean_close(&data),1);
 	clean_close(&data);
     return (0);
 }

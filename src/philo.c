@@ -7,6 +7,6 @@ void *philo_rutine(void *philos)
 	philo = (t_philo*)philos;
 	if (philo->philo_id == 5)
 		sleep(2);
-	printf("philo %d\n", philo->philo_id);
+	ft_print_state(philo,EAT);
 	return (NULL);
 }

@@ -1,6 +1,6 @@
 CC = gcc
-#FLAGS = -Wall -Werror -Wextra -g -I /inc/ -fsanitize=thread
-FLAGS = -Wall -Werror -Wextra -g -I /inc/ -fsanitize=leak
+FLAGS = -Wall -Werror -Wextra -g -I /inc/ -fsanitize=thread
+#FLAGS = -Wall -Werror -Wextra -g -I /inc/ -fsanitize=leak
 CFILES = main.c\
 		utils.c\
 		init.c\

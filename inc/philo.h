@@ -15,6 +15,12 @@
     "3. The number of philosophers must be greater than 1.\n"\
     "4. The number of meals must be greater than 0.\n"
 
+//Estates
+# define SLEEP "is sleeping"
+# define FORK "has taken a fork"
+# define THINK "is thinking"
+# define EAT "is eating"
+# define DIED "is dead"
 typedef enum
 {
     FALSE,
@@ -60,6 +66,7 @@ long	ft_atol(const char *nptr);
 long get_date_time();
 void ft_usleep(int miliseconds);
 bool ft_isnumber(char c);
+void ft_print_state(t_philo *philo,char *state);
 // init
 bool init_data(t_data *data, char **argv, int arc);
 // threads

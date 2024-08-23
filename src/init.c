@@ -21,6 +21,10 @@ static bool init_mutex(t_data *data)
         return (FALSE);
     if(pthread_mutex_init(&data->meals,NULL)!= 0)
         return (FALSE);
+    if(pthread_mutex_init(&data->time,NULL)!= 0)
+        return (FALSE);
+       if(pthread_mutex_init(&data->syncro,NULL)!= 0)
+        return (FALSE);
     return (TRUE);
 }
 
@@ -51,6 +55,7 @@ bool init_data(t_data *data, char **argv, int arc)
 	data->time_eat = ft_atol(argv[3]);
 	data->time_sleep = ft_atol(argv[4]);
     data->dead_flag = FALSE;
+    data->all_ready = FALSE;
 	if (arc == 5)
 		data->meals_nb = -1;
 	else

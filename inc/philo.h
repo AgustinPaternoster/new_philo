@@ -55,10 +55,13 @@ typedef struct s_data
     long time_die;
     int meals_nb;
     bool dead_flag;
-    size_t start_time;
+    long start_time;
+    bool all_ready;
     pthread_mutex_t print;
     pthread_mutex_t dead;
     pthread_mutex_t meals;
+    pthread_mutex_t time;
+    pthread_mutex_t syncro;
 }t_data;
 
 // utils
@@ -72,6 +75,10 @@ bool init_data(t_data *data, char **argv, int arc);
 // threads
 bool start_simulation(t_data *data);
 void *philo_rutine(void *philos);
+long get_safe_long(pthread_mutex_t *mutex, long *var);
+void set_safe_long(pthread_mutex_t *mutex, long *var, long value);
+bool get_safe_bool(pthread_mutex_t *mutex, bool *boolean);
+void set_safe_bool(pthread_mutex_t *mutex, bool *var,bool value);
 
 
 #endif

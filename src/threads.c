@@ -25,9 +25,8 @@ bool start_simulation(t_data *data)
         data->philo[i].last_meal = get_date_time();
         i++;
     }
-    pthread_mutex_lock(&data->print);
-    data->start_time = get_date_time();
-    pthread_mutex_unlock(&data->print);
+    set_safe_bool(&data->syncro,&data->all_ready,TRUE);
+    set_safe_long(&data->time,&data->start_time,get_date_time());
     pthreads_join(data);
 	printf("salida treads");
     return (TRUE);

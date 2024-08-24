@@ -69,7 +69,8 @@ long	ft_atol(const char *nptr);
 long get_date_time();
 void ft_usleep(int miliseconds);
 bool ft_isnumber(char c);
-void ft_print_state(t_philo *philo,char *state);
+//void ft_print_state(t_philo *philo,char *state);
+void ft_print_state(t_philo *philo,char *state, int forknb);
 // init
 bool init_data(t_data *data, char **argv, int arc);
 // threads
@@ -79,6 +80,5 @@ long get_safe_long(pthread_mutex_t *mutex, long *var);
 void set_safe_long(pthread_mutex_t *mutex, long *var, long value);
 bool get_safe_bool(pthread_mutex_t *mutex, bool *boolean);
 void set_safe_bool(pthread_mutex_t *mutex, bool *var,bool value);
-
 
 #endif

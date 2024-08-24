@@ -23,7 +23,7 @@ static bool init_mutex(t_data *data)
         return (FALSE);
     if(pthread_mutex_init(&data->time,NULL)!= 0)
         return (FALSE);
-       if(pthread_mutex_init(&data->syncro,NULL)!= 0)
+    if(pthread_mutex_init(&data->syncro,NULL)!= 0)
         return (FALSE);
     return (TRUE);
 }

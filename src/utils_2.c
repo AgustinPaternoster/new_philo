@@ -1,15 +1,15 @@
 #include "../inc/philo.h"
 
-void ft_print_state(t_philo *philo,char *state)
+void ft_print_state(t_philo *philo,char *state, int forknb)
 {
     ssize_t time;
     ssize_t start_time;
-    (void)state;
+
     start_time = get_safe_long(&philo->data->time,&philo->data->start_time);
-    time = get_date_time();
+    time = get_date_time() - start_time;
     pthread_mutex_lock(&philo->data->print);
-    printf("time :%ld start time%ld \n",time , start_time);
-    //printf("%ld %d %s\n",time,philo->philo_id, state);
+    //printf("time :%ld start time%ld \n",time , start_time);
+    printf("%ld %d %s forknb:%d \n",time,philo->philo_id, state , forknb);
     pthread_mutex_unlock(&philo->data->print);
 }
 

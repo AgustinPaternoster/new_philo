@@ -4,6 +4,7 @@ bool dead_loop(t_philo *philo)
     return(get_safe_bool(&philo->data->dead, &philo->data->dead_flag));
 }
 
+
 void select_fork(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
@@ -17,10 +18,13 @@ void select_fork(t_philo *philo)
 		pthread_mutex_lock(&philo->right_fork->fork);
 	ft_print_state(philo,FORK);
 }
-
+void start_sleeping(t_philo *philo)
+{
+    ft_print_state(philo,SLEEP);
+    ft_usleep(philo->data->time_sleep);
+}
 bool star_eating(t_philo *philo)
 {
-	select_fork(philo);
 	ft_print_state(philo,EAT);
 	pthread_mutex_lock(&philo->data->meals);
 	philo->last_meal = get_date_time();
@@ -40,10 +44,10 @@ void *philo_rutine(void *philos)
 	while(!get_safe_bool(&philo->data->syncro,&philo->data->all_ready));
 	while(!dead_loop(philo))
 	{
+		select_fork(philo);
 		star_eating(philo);
-
+		start_sleeping(philo);
+		ft_print_state(philo,THINK);
 	}
-
-	
 	return (NULL);
 }

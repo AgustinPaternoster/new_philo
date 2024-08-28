@@ -49,6 +49,7 @@ typedef struct s_data
 {
     t_philo *philo;
     t_forks *forks;
+    pthread_t monitor;
     int philo_nb;
     long time_eat;
     long time_sleep;
@@ -76,10 +77,13 @@ bool init_data(t_data *data, char **argv, int arc);
 // threads
 bool start_simulation(t_data *data);
 void *philo_rutine(void *philos);
+bool dead_checker(t_philo *philo);
+void *monitor_rutine(void *data);
+//getter & setter
 long get_safe_long(pthread_mutex_t *mutex, long *var);
 void set_safe_long(pthread_mutex_t *mutex, long *var, long value);
 bool get_safe_bool(pthread_mutex_t *mutex, bool *boolean);
 void set_safe_bool(pthread_mutex_t *mutex, bool *var,bool value);
-bool dead_checker(t_philo *philo);
+
 
 #endif

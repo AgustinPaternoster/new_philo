@@ -6,7 +6,8 @@ CFILES = main.c\
 		init.c\
 		philo.c\
 		threads.c\
-		utils_2.c
+		utils_2.c\
+		monitor.c
 HEADER = inc/philo.h
 NAME = philo
 DIRF = src/

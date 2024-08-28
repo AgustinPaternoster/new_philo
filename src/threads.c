@@ -9,6 +9,7 @@ static void pthreads_join(t_data * data)
         pthread_join(data->philo[i].thread_id, NULL);
         i++;
     }
+    pthread_join(data->monitor,NULL);
 }
 
 bool start_simulation(t_data *data)
@@ -27,7 +28,9 @@ bool start_simulation(t_data *data)
     }
     set_safe_long(&data->time,&data->start_time,get_date_time());
     set_safe_bool(&data->syncro,&data->all_ready,TRUE);
+    if (pthread_create(&data->monitor,NULL, monitor_rutine,(void*)data) != 0)
+        return (FALSE);
     pthreads_join(data);
-	printf("salida treads");
+	printf("salida treads\n");
     return (TRUE);
 }

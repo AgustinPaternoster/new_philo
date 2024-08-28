@@ -42,12 +42,23 @@ void *philo_rutine(void *philos)
 
 	philo = (t_philo*)philos;
 	while(!get_safe_bool(&philo->data->syncro,&philo->data->all_ready));
-	while(!dead_loop(philo))
+	set_safe_long(&philo->data->time,&philo->last_meal, get_date_time());
+	// while(!dead_loop(philo))
+	// {
+	// 	select_fork(philo);
+	// 	star_eating(philo);
+	// 	start_sleeping(philo);
+	// 	ft_print_state(philo,THINK);
+	// }
+	int i = 0;
+	while(i < 3)
 	{
 		select_fork(philo);
 		star_eating(philo);
 		start_sleeping(philo);
 		ft_print_state(philo,THINK);
+		i++;
 	}
+	printf("philo %d ha terminado\n",philo->philo_id);
 	return (NULL);
 }

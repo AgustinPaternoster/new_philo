@@ -5,7 +5,7 @@ bool dead_loop(t_philo *philo)
 }
 
 
-void select_fork(t_philo *philo)
+bool select_fork(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
 		pthread_mutex_lock(&philo->right_fork->fork);
@@ -17,7 +17,9 @@ void select_fork(t_philo *philo)
 	else
 		pthread_mutex_lock(&philo->right_fork->fork);
 	ft_print_state(philo,FORK);
+	return(TRUE);
 }
+
 void start_sleeping(t_philo *philo)
 {
     ft_print_state(philo,SLEEP);
@@ -50,15 +52,15 @@ void *philo_rutine(void *philos)
 	// 	start_sleeping(philo);
 	// 	ft_print_state(philo,THINK);
 	// }
-	int i = 0;
-	while(i < 3)
+	//int i = 0;
+	while(!dead_loop(philo))
 	{
 		select_fork(philo);
 		star_eating(philo);
 		start_sleeping(philo);
 		ft_print_state(philo,THINK);
-		i++;
+		//i++;
 	}
-	printf("philo %d ha terminado\n",philo->philo_id);
+	//printf("philo %d ha terminado\n",philo->philo_id);
 	return (NULL);
 }

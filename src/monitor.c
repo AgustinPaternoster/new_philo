@@ -3,16 +3,22 @@
 bool check_life(t_data *data)
 {
     int i;
-    long last_meal;
+    //long last_meal;
+
+    long result;
 
     i = 0;
     while (i < data->philo_nb)
     {
-        last_meal = get_safe_long(&data->meals,&data->philo[i].last_meal);
+        //last_meal = get_safe_long(&data->meals,&data->philo[i].last_meal);
     
-        if (get_date_time() - last_meal > data->time_die)
+        result = get_date_time() - get_safe_long(&data->meals,&data->philo[i].last_meal);
+        if (result > data->time_die)
         {
-            printf("el %d tiempo %ld\n", data->philo[i].philo_id, get_date_time() - last_meal);
+            set_safe_bool(&data->dead,&data->dead_flag,TRUE);
+            printf("%ld,\n",result);
+            ft_print_state(&data->philo[i], DIED);
+            exit(0);
             return (FALSE);
         }
         i++;

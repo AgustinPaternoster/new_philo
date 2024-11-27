@@ -1,28 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 14:56:30 by apaterno          #+#    #+#             */
+/*   Updated: 2024/11/26 14:56:30 by apaterno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philo.h"
 
-void clean_close(t_data *data)
+void	clean_close(t_data *data)
 {
-    int i;
-    while (i < data->philo_nb)
-    {
-        pthread_mutex_destroy(&data->forks[i].fork);
-        i++;
-    }
-    pthread_mutex_destroy(&data->print);
-    pthread_mutex_destroy(&data->dead);
-    pthread_mutex_destroy(&data->meals);
+	int	i;
+
+	i = 0;
+	while (i < data->philo_nb)
+	{
+		pthread_mutex_destroy(&data->forks[i].fork);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->dead);
+	pthread_mutex_destroy(&data->meals);
+	pthread_mutex_destroy(&data->time);
+	pthread_mutex_destroy(&data->syncro);
 	free(data->forks);
 	free(data->philo);
 }
 
-static bool check_nb(int arc, char **argv)
+static bool	check_nb(int arc, char **argv)
 {
-	int i;
-	int j;
-	long nb;
+	int		i;
+	int		j;
+	long	nb;
 
 	i = 1;
-	while(i < arc)
+	while (i < arc)
 	{
 		j = 0;
 		nb = atol(argv[i]);
@@ -36,16 +52,16 @@ static bool check_nb(int arc, char **argv)
 			return (FALSE);
 		if (nb < INT_MIN || nb > INT_MAX)
 			return (FALSE);
-	i++;
+		i++;
 	}
 	return (TRUE);
 }
 
-static bool check_arguments(int arg, char **argv )
+static bool	check_arguments(int arg, char **argv )
 {
 	if (arg < 5 || arg > 6)
 		return (FALSE);
-	if (!check_nb(arg,argv))
+	if (!check_nb(arg, argv))
 		return (FALSE);
 	if (arg == 6 && atol(argv[5]) < 1)
 		return (FALSE);
@@ -53,17 +69,17 @@ static bool check_arguments(int arg, char **argv )
 }
 
 
-int main(int arc , char **argv)
+int	main(int arc, char **argv)
 {
-    t_data data;
+	t_data	data;
 
-    (void)data;
-    if (!check_arguments(arc, argv))
-		return (printf(RULES),1);
-    if (!init_data(&data, argv,arc))
-		return (printf("Error\n"),clean_close(&data),1);
+	(void)data;
+	if (!check_arguments(arc, argv))
+		return (printf(RULES), 1);
+	if (!init_data(&data, argv, arc))
+		return (printf("Error\n"), clean_close(&data), 1);
 	if (!start_simulation(&data))
-		return (printf("Error\n"),clean_close(&data),1);
+		return (printf("Error\n"), clean_close(&data), 1);
 	clean_close(&data);
-    return (0);
+	return (0);
 }

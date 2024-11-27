@@ -15,7 +15,7 @@
     "3. The number of philosophers must be greater than 1.\n"\
     "4. The number of meals must be greater than 0.\n"
 
-//Estates
+//States
 # define SLEEP "is sleeping"
 # define FORK "has taken a fork"
 # define THINK "is thinking"
@@ -47,30 +47,31 @@ typedef struct c_philo
 
 typedef struct s_data
 {
-    t_philo *philo;
-    t_forks *forks;
-    pthread_t monitor;
-    int philo_nb;
-    long time_eat;
-    long time_sleep;
-    long time_die;
-    int meals_nb;
-    bool dead_flag;
-    long start_time;
-    bool all_ready;
-    pthread_mutex_t print;
-    pthread_mutex_t dead;
-    pthread_mutex_t meals;
-    pthread_mutex_t time;
-    pthread_mutex_t syncro;
-}t_data;
+	t_philo			*philo;
+	t_forks			*forks;
+	pthread_t		monitor;
+	int				philo_nb;
+	long			time_eat;
+	long			time_sleep;
+	long			time_die;
+	int				meals_nb;
+	bool			dead_flag;
+	long			start_time;
+	bool			all_ready;
+	pthread_mutex_t	print;
+	pthread_mutex_t	dead;
+	pthread_mutex_t	meals;
+	pthread_mutex_t	time;
+	pthread_mutex_t	syncro;
+}	t_data;
 
 // utils
 long	ft_atol(const char *nptr);
-long get_date_time();
-void ft_usleep(int miliseconds);
-bool ft_isnumber(char c);
-void ft_print_state(t_philo *philo,char *state);
+long	get_date_time(void);
+void	ft_usleep(int miliseconds);
+bool	ft_isnumber(char c);
+void	ft_print_state(t_philo *philo,char *state);
+void	ft_putstr_fd(char *str, int fd);
 //void ft_print_state(t_philo *philo,char *state, int forknb);
 // init
 bool init_data(t_data *data, char **argv, int arc);

@@ -1,6 +1,7 @@
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g -I /inc/ -fsanitize=thread
-#FLAGS = -Wall -Werror -Wextra -g -I /inc/ -fsanitize=leak
+FLAGS = -Wall -Werror -Wextra  -I /inc/ 
+MODE = none
+
 CFILES = main.c\
 		utils.c\
 		init.c\
@@ -13,6 +14,10 @@ NAME = philo
 DIRF = src/
 SRC_FILES = $(addprefix $(DIRF),$(CFILES))
 
+ifeq ($(MODE), debug)
+	FLAGS += -g -fsanitize=thread
+endif
+
 all : $(NAME)
 
 $(NAME) : $(SRC_FILES) $(HEADER) Makefile
@@ -22,7 +27,7 @@ clean:
 
 
 fclean:
-
+	rm -rf $(NAME)
 
 re: fclean all
 

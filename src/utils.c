@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 14:56:02 by apaterno          #+#    #+#             */
+/*   Updated: 2024/11/26 14:56:02 by apaterno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philo.h"
 
 long	ft_atol(const char *nptr)
 {
 	int	i;
-
 	int	neg;
 	int	res;
 
@@ -28,32 +39,46 @@ long	ft_atol(const char *nptr)
 }
 
 
-long get_date_time()
+long	get_date_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
-	if (gettimeofday(&time,NULL) != 0)
+	if (gettimeofday(&time, NULL) != 0)
 		return (0);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void ft_usleep(int miliseconds)
+void	ft_usleep(int miliseconds)
 {
-	long init;
-	long mils;
+	long	init;
+	long	mils;
 
 	mils = 0;
 	init = get_date_time();
-	while ( mils < miliseconds)
+	while (mils < miliseconds)
 	{
-    	usleep (500);
-    	mils = (get_date_time() - init);
+		usleep(500);
+		mils = (get_date_time() - init);
 	}
 }
 
-bool ft_isnumber(char c)
+bool	ft_isnumber(char c)
 {
 	if (c < 48 || c > 57)
 		return (FALSE);
 	return (TRUE);
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+	{
+		write(fd, &str[i], 1);
+		i++;
+	}
 }

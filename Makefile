@@ -8,7 +8,8 @@ CFILES = main.c\
 		philo.c\
 		threads.c\
 		utils_2.c\
-		monitor.c
+		monitor.c\
+		utils_3.c
 HEADER = inc/philo.h
 NAME = philo
 DIRF = src/

@@ -12,43 +12,38 @@
 
 #include "../inc/philo.h"
 
-bool	check_life(t_data *data)
+static t_bool	is_dead(t_philo *philo)
 {
-	int		i;
 	long	result;
-	 //long last_meal;
+	long 	time_to_die;
 
-	i = 0;
-	while (i < data->philo_nb)
-	{
-        //last_meal = get_safe_long(&data->meals,&data->philo[i].last_meal);
-		result = get_date_time() - get_safe_long(&data->meals,
-				&data->philo[i].last_meal);
-		if (result > data->time_die)
-		{
-			set_safe_bool(&data->dead, &data->dead_flag, TRUE);
-			printf("%ld,\n", result);
-			ft_print_state(&data->philo[i], DIED);
-			exit(0);
-			return (FALSE);
-		}
-		i++;
-	}
-	return (TRUE);
+	if (get_safe_bool(&philo->philo_mutex, &philo->is_full))
+		return (FALSE);
+	result = get_date_time() - get_safe_long(&philo->philo_mutex, &philo->last_meal);
+	time_to_die = philo->data->time_die;
+	if (result > time_to_die)
+		return (TRUE);
+	return (FALSE);
 }
 
 void	*monitor_rutine(void *thread_data)
 {
 	t_data	*data;
+	int		i;
 
 	data = (t_data *)thread_data;
-	(void)data;
-	while (1)
+
+	while (!dead_loop(data))
 	{
-		if (!check_life(data))
+		i = 0;
+		while(i < data->philo_nb && !dead_loop(data))
 		{
-			//printf("philo muerto\n");
-			return (NULL);
+			if (is_dead(&data->philo[i]))
+			{
+				set_safe_bool(&data->read_table, &data->dead_flag, TRUE);
+				ft_print_state(&data->philo[i], DIED);
+			}
+			i++;
 		}
 	}
 	return (NULL);

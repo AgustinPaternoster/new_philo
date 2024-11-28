@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:51:17 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/27 11:53:28 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:12:35 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ void	ft_print_state(t_philo *philo, char *state)
 	ssize_t	time;
 	ssize_t	start_time;
 
-	start_time = get_safe_long(&philo->data->time, &philo->data->start_time);
+	start_time = get_safe_long(&philo->philo_mutex,
+				&philo->data->start_time);
 	time = get_date_time() - start_time;
 	pthread_mutex_lock(&philo->data->print);
-	printf("%ld %d %s\n", time, philo->philo_id, state);
-    //printf("time :%ld start time%ld \n",time , start_time);
-    //printf("%ld %d %s forknb:%d \n",time,philo->philo_id, state , forknb);
+	if (!dead_loop(philo->data))
+		printf("%ld %d %s\n", time, philo->philo_id, state);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
-bool	get_safe_bool(pthread_mutex_t *mutex, bool *boolean)
+t_bool	get_safe_bool(pthread_mutex_t *mutex, t_bool *boolean)
 {
-	bool	result;
+	t_bool	result;
 
 	pthread_mutex_lock(mutex);
 	result = *boolean;
@@ -36,7 +36,7 @@ bool	get_safe_bool(pthread_mutex_t *mutex, bool *boolean)
 	return (result);
 }
 
-void	set_safe_bool(pthread_mutex_t *mutex, bool *var, bool value)
+void	set_safe_bool(pthread_mutex_t *mutex, t_bool *var, t_bool value)
 {
 	pthread_mutex_lock(mutex);
 	*var = value;

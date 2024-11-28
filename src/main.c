@@ -20,18 +20,16 @@ void	clean_close(t_data *data)
 	while (i < data->philo_nb)
 	{
 		pthread_mutex_destroy(&data->forks[i].fork);
+		pthread_mutex_destroy(&data->philo[i].philo_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->dead);
-	pthread_mutex_destroy(&data->meals);
-	pthread_mutex_destroy(&data->time);
-	pthread_mutex_destroy(&data->syncro);
+	pthread_mutex_destroy(&data->read_table);
 	free(data->forks);
 	free(data->philo);
 }
 
-static bool	check_nb(int arc, char **argv)
+static t_bool	check_nb(int arc, char **argv)
 {
 	int		i;
 	int		j;
@@ -41,7 +39,7 @@ static bool	check_nb(int arc, char **argv)
 	while (i < arc)
 	{
 		j = 0;
-		nb = atol(argv[i]);
+		nb = ft_atol(argv[i]);
 		while (argv[i][j])
 		{
 			if (!ft_isnumber(argv[i][j]))
@@ -57,17 +55,19 @@ static bool	check_nb(int arc, char **argv)
 	return (TRUE);
 }
 
-static bool	check_arguments(int arg, char **argv )
+static t_bool	check_arguments(int arg, char **argv )
 {
 	if (arg < 5 || arg > 6)
 		return (FALSE);
 	if (!check_nb(arg, argv))
 		return (FALSE);
-	if (arg == 6 && atol(argv[5]) < 1)
+	if (arg == 6 && ft_atol(argv[5]) < 1)
+		return (FALSE);
+	if ((ft_atol(argv[2]) < 60) || (ft_atol(argv[3]) < 60) || \
+		(ft_atol(argv[4]) < 60))
 		return (FALSE);
 	return (TRUE);
 }
-
 
 int	main(int arc, char **argv)
 {

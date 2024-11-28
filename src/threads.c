@@ -6,13 +6,13 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:49:18 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/27 11:51:09 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:05:03 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static void	pthreads_join(t_data * data)
+static void	pthreads_join(t_data *data)
 {
 	int	i;
 
@@ -25,26 +25,22 @@ static void	pthreads_join(t_data * data)
 	pthread_join(data->monitor, NULL);
 }
 
-bool	start_simulation(t_data *data)
+t_bool	start_simulation(t_data *data)
 {
 	int	i;
 
 	i = 0;
-
-
 	while (i < data->philo_nb)
 	{
 		if (pthread_create(&data->philo[i].thread_id, NULL,
 				philo_rutine, (void*)&data->philo[i]) != 0)
-			return (FALSE);
-		data->philo[i].last_meal = get_date_time();
+			error_exit(THREAD, 3);
 		i++;
 	}
-	set_safe_long(&data->time,&data->start_time, get_date_time());
-	set_safe_bool(&data->syncro, &data->all_ready, TRUE);
-	if (pthread_create(&data->monitor, NULL, monitor_rutine, (void*)data) != 0)
-		return (FALSE);
+	data->start_time = get_date_time();
+	set_safe_bool(&data->read_table, &data->all_ready, TRUE);
+	if (pthread_create(&data->monitor, NULL, monitor_rutine, (void *)data) != 0)
+		error_exit(THREAD, 3);
 	pthreads_join(data);
-	printf("salida treads\n");
 	return (TRUE);
 }

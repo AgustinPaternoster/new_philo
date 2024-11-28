@@ -43,8 +43,8 @@ long	get_date_time(void)
 {
 	struct timeval	time;
 
-	if (gettimeofday(&time, NULL) != 0)
-		return (0);
+	if (gettimeofday(&time, NULL))
+		error_exit("Gettimeofday Error", EXIT_FAILURE);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
@@ -62,7 +62,7 @@ void	ft_usleep(int miliseconds)
 	}
 }
 
-bool	ft_isnumber(char c)
+t_bool	ft_isnumber(char c)
 {
 	if (c < 48 || c > 57)
 		return (FALSE);

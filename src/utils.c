@@ -38,7 +38,6 @@ long	ft_atol(const char *nptr)
 	return (res * neg);
 }
 
-
 long	get_date_time(void)
 {
 	struct timeval	time;

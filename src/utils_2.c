@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:51:17 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/28 17:12:35 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:31:33 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	ft_print_state(t_philo *philo, char *state)
 	ssize_t	time;
 	ssize_t	start_time;
 
-	start_time = get_safe_long(&philo->philo_mutex,
-				&philo->data->start_time);
+	start_time = get_safe_long(&philo->philo_mutex, &philo->data->start_time);
 	time = get_date_time() - start_time;
 	pthread_mutex_lock(&philo->data->print);
 	if (!dead_loop(philo->data))

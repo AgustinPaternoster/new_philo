@@ -12,7 +12,7 @@
 
 #include "../inc/philo.h"
 
-static void select_forks(t_data *data, int i)
+static void	select_forks(t_data *data, int i)
 {
 	if (data->philo[i].philo_id % 2 == 0)
 	{
@@ -25,7 +25,6 @@ static void select_forks(t_data *data, int i)
 		data->philo[i].second_fork = &data->forks[i];
 	}
 }
-
 
 static t_bool	init_mutex(t_data *data)
 {
@@ -46,12 +45,6 @@ static t_bool	init_mutex(t_data *data)
 		error_exit(MUTEX, 2);
 	if (pthread_mutex_init(&data->print, NULL) != 0)
 		error_exit(MUTEX, 2);
-	// if (pthread_mutex_init(&data->meals, NULL) != 0)
-	// 	error_exit(MUTEX, 2);
-	// if (pthread_mutex_init(&data->time, NULL) != 0)
-	// 	error_exit(MUTEX, 2);
-	// if (pthread_mutex_init(&data->syncro, NULL) != 0)
-	// 	error_exit(MUTEX, 2);
 	return (TRUE);
 }
 
@@ -72,16 +65,6 @@ static t_bool	init_philo(t_data *data)
 		select_forks(data, i);
 		if (pthread_mutex_init(&data->philo[i].philo_mutex, NULL) != 0)
 			error_exit(MUTEX, 2);
-		// if (data->philo[i].philo_id % 2 == 0)
-		// {
-		// 	data->philo[i].first_fork = &data->forks[i];
-		// 	data->philo[i].second_fork = &data->forks[(i + 1) % data->philo_nb];
-		// }
-		// else
-		// {
-		// 	data->philo[i].first_fork = &data->forks[(i + 1) % data->philo_nb];
-		// 	data->philo[i].second_fork = &data->forks[i];
-		// }
 		i++;
 	}
 	return (TRUE);

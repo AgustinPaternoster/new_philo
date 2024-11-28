@@ -15,11 +15,12 @@
 static t_bool	is_dead(t_philo *philo)
 {
 	long	result;
-	long 	time_to_die;
+	long	time_to_die;
 
 	if (get_safe_bool(&philo->philo_mutex, &philo->is_full))
 		return (FALSE);
-	result = get_date_time() - get_safe_long(&philo->philo_mutex, &philo->last_meal);
+	result = get_date_time() - get_safe_long(&philo->philo_mutex,
+			&philo->last_meal);
 	time_to_die = philo->data->time_die;
 	if (result > time_to_die)
 		return (TRUE);
@@ -32,11 +33,10 @@ void	*monitor_rutine(void *thread_data)
 	int		i;
 
 	data = (t_data *)thread_data;
-
 	while (!dead_loop(data))
 	{
 		i = 0;
-		while(i < data->philo_nb && !dead_loop(data))
+		while (i < data->philo_nb && !dead_loop(data))
 		{
 			if (is_dead(&data->philo[i]))
 			{

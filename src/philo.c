@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:09:29 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/28 17:10:31 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:33:25 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,6 @@ t_bool	dead_loop(t_data *data)
 {
 	return (get_safe_bool(&data->read_table, &data->dead_flag));
 }
-
-// t_bool	select_fork(t_philo *philo)
-// {
-// 	if (philo->philo_id % 2 == 0)
-// 		pthread_mutex_lock(&philo->right_fork->fork);
-// 	else
-// 		pthread_mutex_lock(&philo->left_fork->fork);
-// 	ft_print_state(philo, FORK);
-// 	if (philo->philo_id % 2 == 0)
-// 		pthread_mutex_lock(&philo->left_fork->fork);
-// 	else
-// 		pthread_mutex_lock(&philo->right_fork->fork);
-// 	ft_print_state(philo, FORK);
-// 	return (TRUE);
-// }
 
 void	start_sleeping(t_philo *philo)
 {
@@ -65,7 +50,7 @@ void	*philo_rutine(void *philos)
 	while (!dead_loop(philo->data))
 	{
 		if (philo->is_full)
-			break;
+			break ;
 		star_eating(philo);
 		start_sleeping(philo);
 		ft_print_state(philo, THINK);

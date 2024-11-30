@@ -78,6 +78,7 @@ typedef struct s_data
 	t_bool			dead_flag;
 	long			start_time;
 	t_bool			all_ready;
+	long 			philo_running;
 	pthread_mutex_t	print;
 	pthread_mutex_t	read_table;
 }	t_data;
@@ -91,7 +92,6 @@ void	ft_print_state(t_philo *philo, char *state);
 void	ft_putstr_fd(char *str, int fd);
 void	error_exit(char *msg, int exit_code);
 t_bool	dead_loop(t_data *data);
-//void ft_print_state(t_philo *philo,char *state, int forknb);
 // init
 t_bool	init_data(t_data *data, char **argv, int arc);
 // threads
@@ -104,5 +104,6 @@ long	get_safe_long(pthread_mutex_t *mutex, long *var);
 void	set_safe_long(pthread_mutex_t *mutex, long *var, long value);
 t_bool	get_safe_bool(pthread_mutex_t *mutex, t_bool *boolean);
 void	set_safe_bool(pthread_mutex_t *mutex, t_bool *var, t_bool value);
+void	increase_safe_long(pthread_mutex_t *mutex, long *value);
 
 #endif

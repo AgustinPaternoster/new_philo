@@ -78,6 +78,7 @@ t_bool	init_data(t_data *data, char **argv, int arc)
 	data->time_sleep = ft_atol(argv[4]);
 	data->dead_flag = FALSE;
 	data->all_ready = FALSE;
+	data->philo_running = 0;
 	if (arc == 5)
 		data->meals_nb = -1;
 	else

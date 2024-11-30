@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:49:18 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/28 16:05:03 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:21:43 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	pthreads_join(t_data *data)
 		pthread_join(data->philo[i].thread_id, NULL);
 		i++;
 	}
+	set_safe_bool(&data->read_table, &data->dead_flag, TRUE);
 	pthread_join(data->monitor, NULL);
 }
 
@@ -42,5 +43,6 @@ t_bool	start_simulation(t_data *data)
 	if (pthread_create(&data->monitor, NULL, monitor_rutine, (void *)data) != 0)
 		error_exit(THREAD, 3);
 	pthreads_join(data);
+	printf("End of simulation\n");
 	return (TRUE);
 }

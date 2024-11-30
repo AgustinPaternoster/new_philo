@@ -12,6 +12,18 @@
 
 #include "../inc/philo.h"
 
+static t_bool	philo_run(pthread_mutex_t *mutex, long *threads, long philo_nb)
+{
+	t_bool	ret;
+
+	ret = FALSE;
+	pthread_mutex_lock(mutex);
+	if (*threads == philo_nb)
+		ret = TRUE;
+	pthread_mutex_unlock(mutex);
+	return (ret);
+}
+
 static t_bool	is_dead(t_philo *philo)
 {
 	long	result;
@@ -33,6 +45,8 @@ void	*monitor_rutine(void *thread_data)
 	int		i;
 
 	data = (t_data *)thread_data;
+	while (!philo_run(&data->read_table, &data->philo_running, data->philo_nb))
+		;
 	while (!dead_loop(data))
 	{
 		i = 0;
@@ -40,8 +54,8 @@ void	*monitor_rutine(void *thread_data)
 		{
 			if (is_dead(&data->philo[i]))
 			{
-				set_safe_bool(&data->read_table, &data->dead_flag, TRUE);
 				ft_print_state(&data->philo[i], DIED);
+				set_safe_bool(&data->read_table, &data->dead_flag, TRUE);
 			}
 			i++;
 		}

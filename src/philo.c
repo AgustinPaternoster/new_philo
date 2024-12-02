@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:09:29 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/30 13:30:26 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:45:55 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	*philo_rutine(void *philos)
 		;
 	set_safe_long(&philo->philo_mutex, &philo->last_meal, get_date_time());
 	increase_safe_long(&philo->data->read_table, &philo->data->philo_running);
-	//printf("PHILOS %ld\n", philo->data->philo_running);make
 	while (!dead_loop(philo->data) && !philo->is_full)
 	{
 		if (philo->is_full)

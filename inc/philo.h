@@ -78,7 +78,7 @@ typedef struct s_data
 	t_bool			dead_flag;
 	long			start_time;
 	t_bool			all_ready;
-	long 			philo_running;
+	long			philo_running;
 	pthread_mutex_t	print;
 	pthread_mutex_t	read_table;
 }	t_data;

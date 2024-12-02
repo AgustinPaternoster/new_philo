@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:49:18 by apaterno          #+#    #+#             */
-/*   Updated: 2024/12/02 14:11:07 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:12:46 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ t_bool	start_simulation(t_data *data)
 	i = 0;
 	if (data->philo_nb == 1)
 	{
-		lone_philo()
-	}	 
+		data->start_time = get_date_time();
+		lone_philo(&data->philo[0]);
+	}
 	else
 	{
 		while (i < data->philo_nb)
@@ -44,11 +45,12 @@ t_bool	start_simulation(t_data *data)
 				error_exit(THREAD, 3);
 			i++;
 		}
-	data->start_time = get_date_time();
-	set_safe_bool(&data->read_table, &data->all_ready, TRUE);
-	if (pthread_create(&data->monitor, NULL, monitor_rutine, (void *)data) != 0)
-		error_exit(THREAD, 3);
-	pthreads_join(data);
+		data->start_time = get_date_time();
+		set_safe_bool(&data->read_table, &data->all_ready, TRUE);
+		if (pthread_create(&data->monitor, NULL, monitor_rutine, \
+			(void *)data) != 0)
+			error_exit(THREAD, 3);
+		pthreads_join(data);
 	}
-	return (printf("End of simulation\n"),TRUE);
+	return (printf("End of simulation\n"), TRUE);
 }

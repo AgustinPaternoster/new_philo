@@ -15,18 +15,6 @@ NAME = philo
 DIRF = src/
 SRC_FILES = $(addprefix $(DIRF),$(CFILES))
 
-ifeq ($(MODE), debug1)
-	FLAGS += -g -fsanitize=thread
-endif
-
-ifeq ($(MODE), debug2)
-	FLAGS += -g -fsanitize=leak
-endif
-
-ifeq ($(MODE), noflag)
-	FLAGS = -g
-endif
-
 all : $(NAME)
 
 $(NAME) : $(SRC_FILES) $(HEADER) Makefile

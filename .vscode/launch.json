@@ -6,7 +6,7 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/philo",  // Ruta del ejecutable
-		"args": ["2", "800" , "200" , "200" ],  // Argumentos para pasar a tu minishell si es necesario
+		"args": ["1", "400" , "200" , "200" ],  // Argumentos para pasar a tu minishell si es necesario
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}",  // Directorio de trabajo
 		"environment": [],

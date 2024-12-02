@@ -6,11 +6,25 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:09:29 by apaterno          #+#    #+#             */
-/*   Updated: 2024/12/02 12:45:55 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:11:28 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+void	*lone_philo(t_philo *philos)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)philos;
+	set_safe_long(&philo->philo_mutex, &philo->last_meal, get_date_time());
+	//ft_print_state(philo, FORK1);
+	printf("TEST");
+	// while (!dead_loop(philo->data))
+	// {
+	// 	usleep(200);
+	// }
+	return (NULL);
+}
 
 t_bool	dead_loop(t_data *data)
 {
